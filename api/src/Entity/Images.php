@@ -8,10 +8,13 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
+use Symfony\Component\Serializer\Annotation\Groups;
 use App\Controller\Upload\UploadImageController;
 use App\Repository\ImagesRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
+use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 
 #[ORM\Entity(repositoryClass: ImagesRepository::class)]
 #[ApiResource(
@@ -23,23 +26,32 @@ use Symfony\Component\HttpFoundation\File\File;
         new Put(),
         new Delete(),
     ],
+    normalizationContext: ['groups' => ['read:images']],
+    denormalizationContext: ['groups' => ['write:images']],
 )]
+#[Uploadable]
 class Images
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['read:images', 'read:works'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['read:images'])]
     private ?string $name = null;
 
+    #[Groups(['read:images', 'read:works'])]
     private ?string $path = null;
 
+    #[UploadableField(mapping: 'image', fileNameProperty: 'name')]
     #[ORM\Column(length: 255)]
+    #[Groups(['read:images', 'write:images'])]
     private ?File $file = null;
 
     #[ORM\ManyToOne(inversedBy: 'images')]
+    #[Groups(['read:images'])]
     private ?Works $works = null;
 
     public function getId(): ?int

@@ -8,6 +8,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
+use Symfony\Component\Serializer\Annotation\Groups;
 use App\Repository\WorksRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -23,21 +24,27 @@ use Doctrine\ORM\Mapping as ORM;
         new Put(),
         new Delete(),
     ],
+    normalizationContext: ['groups' => ['read:works']],
+    denormalizationContext: ['groups' => ['write:works']]
 )]
 class Works
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['read:works', 'read:images'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['read:works', 'write:works', 'read:images'])]
     private ?string $header = null;
 
     #[ORM\Column(length: 1000)]
+    #[Groups(['read:works', 'write:works'])]
     private ?string $description = null;
 
     #[ORM\OneToMany(mappedBy: 'works', targetEntity: Images::class)]
+    #[Groups(['read:works'])]
     private Collection $images;
 
     public function __construct()
