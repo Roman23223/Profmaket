@@ -9,4 +9,5 @@
 /vendor/
 /docker/db/
 /migrations/
+/public/images/
 ###< symfony/framework-bundle ###

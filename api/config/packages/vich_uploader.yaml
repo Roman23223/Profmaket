@@ -1,7 +1,6 @@
 vich_uploader:
     db_driver: orm
-    metadata:
-        type: attribute
+
     mappings:
         image:
             uri_prefix: '%app.path.work.images%'

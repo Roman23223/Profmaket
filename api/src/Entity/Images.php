@@ -46,8 +46,7 @@ class Images
     private ?string $path = null;
 
     #[UploadableField(mapping: 'image', fileNameProperty: 'name')]
-    #[ORM\Column(length: 255)]
-    #[Groups(['read:images', 'write:images'])]
+    #[Groups(['read:images'])]
     private ?File $file = null;
 
     #[ORM\ManyToOne(inversedBy: 'images')]
