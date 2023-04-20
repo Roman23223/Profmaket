@@ -9,6 +9,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -26,24 +27,30 @@ use Symfony\Component\Security\Core\User\UserInterface;
 //            shortName: 'User',
 //        )
     ],
+    normalizationContext: ['groups' => ['read:user']],
+    denormalizationContext: ['groups' => ['write:user']],
 )]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['read:user'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Groups(['read:user', 'write:user'])]
     private ?string $username = null;
 
     #[ORM\Column]
+    #[Groups(['read:user'])]
     private array $roles = [];
 
     /**
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Groups(['write:user'])]
     private ?string $password = null;
 
     public function getId(): ?int
