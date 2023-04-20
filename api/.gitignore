@@ -8,4 +8,5 @@
 /var/
 /vendor/
 /docker/
+/migrations/
 ###< symfony/framework-bundle ###
