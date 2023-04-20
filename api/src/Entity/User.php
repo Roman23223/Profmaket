@@ -3,14 +3,8 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\Delete;
-use ApiPlatform\Metadata\Get;
-use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
-use ApiPlatform\Metadata\Put;
-use App\Controller\GetCurrentUserController;
-use App\Controller\RegistrationAdminController;
-use App\Controller\UploadImageController;
+use App\Controller\User\RegistrationAdminController;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -26,11 +20,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
             controller: RegistrationAdminController::class,
             shortName: 'User',
         ),
-        new GetCollection(
-            uriTemplate: '/me',
-            controller: GetCurrentUserController::class,
-            shortName: 'User',
-        )
+//        new GetCollection(
+//            uriTemplate: '/me',
+//            controller: GetCurrentUserController::class,
+//            shortName: 'User',
+//        )
     ],
 )]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
