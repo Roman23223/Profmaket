@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Post;
+use App\Controller\User\GetCurrentUserController;
 use App\Controller\User\RegistrationAdminController;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,11 +22,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
             controller: RegistrationAdminController::class,
             shortName: 'User',
         ),
-//        new GetCollection(
-//            uriTemplate: '/me',
-//            controller: GetCurrentUserController::class,
-//            shortName: 'User',
-//        )
+        new Post(
+            uriTemplate: '/auth',
+            controller: GetCurrentUserController::class,
+            shortName: 'User',
+        )
     ],
     normalizationContext: ['groups' => ['read:user']],
     denormalizationContext: ['groups' => ['write:user']],
