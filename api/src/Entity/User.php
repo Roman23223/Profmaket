@@ -23,7 +23,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             shortName: 'User',
         ),
         new Post(
-            uriTemplate: '/auth',
+            uriTemplate: '/me',
             controller: GetCurrentUserController::class,
             shortName: 'User',
         )
