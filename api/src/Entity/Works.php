@@ -44,7 +44,7 @@ class Works
     private ?string $description = null;
 
     #[ORM\OneToMany(mappedBy: 'works', targetEntity: Images::class)]
-    #[Groups(['read:works'])]
+    #[Groups(['read:works', 'write:works'])]
     private Collection $images;
 
     public function __construct()

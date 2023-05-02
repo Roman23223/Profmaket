@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import {fetchHydra, HydraAdmin, hydraDataProvider} from "@api-platform/admin";
+import {Resource} from "react-admin";
+import WorksList from "./list/WorksList";
+import WorksShow from "./show/WorksShow";
+import WorksEdit from "./edit/WorksEdit";
+import ImagesList from "./list/ImagesList";
+import ImagesShow from "./show/ImagesShow";
+import ImagesEdit from "./edit/ImagesEdit";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const entrypoint = "http://127.0.0.1:8000/api"
+const dataProvider = hydraDataProvider({
+    entrypoint,
+    httpClient: fetchHydra,
+    mercure: true,
+    useEmbedded: false,
+})
 
-export default App;
+export default () => (
+    <HydraAdmin dataProvider={dataProvider} entrypoint={entrypoint} >
+        <Resource name="works" list={WorksList} show={WorksShow} edit={WorksEdit}/>
+        <Resource name="images" list={ImagesList} show={ImagesShow} edit={ImagesEdit}/>
+    </HydraAdmin>
+)
+

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use App\Controller\User\GetCurrentUserController;
 use App\Controller\User\RegistrationAdminController;
@@ -22,7 +23,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             controller: RegistrationAdminController::class,
             shortName: 'User',
         ),
-        new Post(
+        new GetCollection(
             uriTemplate: '/me',
             controller: GetCurrentUserController::class,
             shortName: 'User',

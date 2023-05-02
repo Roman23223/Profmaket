@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 
+#[Uploadable]
 #[ORM\Entity(repositoryClass: ImagesRepository::class)]
 #[ApiResource(
     shortName: 'Images',
@@ -29,7 +30,6 @@ use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
     normalizationContext: ['groups' => ['read:images']],
     denormalizationContext: ['groups' => ['write:images']],
 )]
-#[Uploadable]
 class Images
 {
     #[ORM\Id]
@@ -39,18 +39,18 @@ class Images
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['read:images'])]
+    #[Groups(['read:images', 'read:works'])]
     private ?string $name = null;
 
     #[Groups(['read:images', 'read:works'])]
     private ?string $path = null;
 
     #[UploadableField(mapping: 'image', fileNameProperty: 'name')]
-    #[Groups(['read:images'])]
+    #[Groups(['read:images', 'write:images'])]
     private ?File $file = null;
 
     #[ORM\ManyToOne(inversedBy: 'images')]
-    #[Groups(['read:images'])]
+    #[Groups(['read:images', 'write:images'])]
     private ?Works $works = null;
 
     public function getId(): ?int
