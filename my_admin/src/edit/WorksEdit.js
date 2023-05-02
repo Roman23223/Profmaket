@@ -7,7 +7,7 @@ const WorksEdit = (props) => {
         <Edit {...props}>
             <SimpleForm>
                 <TextInput source='header'/>
-                <RichTextInput source='description'/>
+                <RichTextInput source='description' stripTags />
                 <ReferenceArrayInput source='images' reference='images'>
                 </ReferenceArrayInput>
             </SimpleForm>
@@ -16,4 +16,3 @@ const WorksEdit = (props) => {
 }
 
 export default WorksEdit
-// НЕ ДОРАБОТАНО!!!

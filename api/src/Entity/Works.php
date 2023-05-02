@@ -43,7 +43,7 @@ class Works
     #[Groups(['read:works', 'write:works'])]
     private ?string $description = null;
 
-    #[ORM\OneToMany(mappedBy: 'works', targetEntity: Images::class)]
+    #[ORM\OneToMany(mappedBy: 'works', targetEntity: Images::class, cascade: ['persist', 'remove'])]
     #[Groups(['read:works', 'write:works'])]
     private Collection $images;
 
