@@ -5,7 +5,7 @@ const WorkList = (props) => {
         <List {...props}>
             <Datagrid>
                 <TextField source="id"/>
-                <TextField source="header" label="header"/>
+                <TextField source="header"/>
                 <ShowButton source='/works' label={false}/>
                 <EditButton basePath='/works' label={false}/>
                 <DeleteButton basePAth='/works' label={false}/>
